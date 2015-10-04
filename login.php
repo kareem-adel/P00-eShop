@@ -9,17 +9,21 @@ if (isset($_POST{'submit'})) {
         $check_query = sprintf("SELECT * FROM users WHERE email = %s AND password = %s;", $email, $password);
         if ($prepare = $dbh->query($check_query) and $prepare->fetchColumn() > 0) {
             $_SESSION['email'] = $email;
+
+            foreach ($dbh->query($check_query) as $row) {
+                $_SESSION['user_id'] = $row['id'];
+            }
             echo 'You are now logged in';
-            echo "<script>setTimeout(\"location.href = 'index.php';\",1500);</script>";
+            echo "<script>setTimeout(\"location.href = 'index.php';\",1000);</script>";
 
         } else {
             echo 'Wrong email or password';
-            echo "<script>setTimeout(\"location.href = 'login.php';\",1500);</script>";
+            echo "<script>setTimeout(\"location.href = 'login.php';\",1000);</script>";
         }
 
     } else {
         echo 'already logged in';
-        echo "<script>setTimeout(\"location.href = 'index.php';\",1500);</script>";
+        echo "<script>setTimeout(\"location.href = 'index.php';\",1000);</script>";
 
     }
 } else {
