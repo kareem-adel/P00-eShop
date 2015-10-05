@@ -14,7 +14,6 @@ if (!array_key_exists('email', $_SESSION)) {
             echo "<br />";
             $encoded_image = base64_encode($row['image']);
             echo "<img src='data:image/jpeg;base64,{$encoded_image}'>";
-            echo $form;
             echo "Item Description: " . $row['description'];
             echo "<br />";
             echo "Price: " . $row['price'];

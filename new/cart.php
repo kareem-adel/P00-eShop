@@ -12,6 +12,36 @@ if (!array_key_exists('email', $_SESSION)) {
         $dbh->query($delete_query);
         header("location: cart.php");
 
+    } elseif (isset($_GET{'checkout'})) {
+        $message = "";
+        $flag = 0;
+        $select_query = sprintf("SELECT orders.amount AS order_amount, orders.product_id, products.name, products.description, products.price, products.amount AS product_amount, products.image FROM orders, products WHERE orders.product_id = products.id AND orders.is_confirmed = 0 AND orders.user_id = %s", $_SESSION['user_id']);
+        if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
+            foreach ($dbh->query($select_query) as $row) {
+                if ($row['product_amount'] < $row['order_amount']) {
+                    $flag = 1;
+                    $message = $message . 'The item ' . $row['name'] . " has only " . $row['product_amount'] . " pieces left " . " but you ordered " . $row['order_amount'] . "<br />";
+                }
+
+
+            }
+            if ($flag == 1) {
+                echo $message . "<br />" . "Please click <a href='cart.php'>here<a/> to edit your cart";
+            } else {
+
+                $select_query = sprintf("SELECT orders.amount AS order_amount, orders.product_id, products.name, products.description, products.price, products.amount AS product_amount, products.image FROM orders, products WHERE orders.product_id = products.id AND orders.is_confirmed = 0 AND orders.user_id = %s", $_SESSION['user_id']);
+                if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
+                    foreach ($dbh->query($select_query) as $row) {
+                        $update_order_to_confirm = sprintf("UPDATE orders SET is_confirmed= 1  WHERE user_id = %s AND product_id = %s AND is_confirmed = 0", $_SESSION['user_id'], $row['product_id']);
+                        $stmt = $dbh->query($update_order_to_confirm);
+                        $update_amount_in_products = sprintf("UPDATE products SET amount= amount-%s  WHERE id = %s", $row['order_amount'], $row['product_id']);
+                        $stmt = $dbh->query($update_amount_in_products);
+                    }
+                    header("location: history.php");
+                }
+            }
+
+        }
     } else {
 
 
@@ -43,15 +73,26 @@ EOT;
                 echo "<br />";
                 $total_cost += $row['amount'] * $row['price'];
 
+
             }
             echo "<br />";
             echo "Total cost of all items in the cart is: " . $total_cost;
+
 
         } else {
             echo "You have no Items in the cart.";
         }
         echo "<br />";
         echo "<a href='index.php'>Add Items</a>";
+        echo "<br />";
+        echo "<br />";
+        echo "<br />";
+        $form = <<<EOT
+<form action='cart.php' method=GET>
+<input type='submit' name='checkout' value='Checkout' />
+</form>
+EOT;
+        echo $form;
     }
 }
 
