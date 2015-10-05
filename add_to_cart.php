@@ -64,7 +64,7 @@ if (!array_key_exists('email', $_SESSION)) {
 		
                 $form = <<<EOT
 <form action='add_to_cart.php' method=GET>
-	<div id="mItem">
+	<div id="mItem" class="panel panel-login">
       <div class="product-image-wrapper">
         <div class="single-products">
           <div class="productinfo text-center" style="margin-right: 10;margin-left: 10;margin-top: 10;">

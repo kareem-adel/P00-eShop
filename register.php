@@ -16,7 +16,7 @@ if (isset($_POST{'submit'})) {
 
     if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
         echo "This email is already registered. Redirecting to login page";
-        echo "<script>setTimeout(\"location.href = 'login.php';\",1500);</script>";
+        echo "<script>setTimeout(\"location.href = 'LoginRegister.php';\",1500);</script>";
 
     } else {
         if ($_POST{'email'} == null or $_POST{'password'} == null) {
