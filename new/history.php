@@ -21,6 +21,8 @@ if (!array_key_exists('email', $_SESSION)) {
             echo "<br />";
             echo "Quantity: " . $row['amount'];
             echo "<br />";
+            echo "Total price: " . ($row['amount'] * $row['price']);
+            echo "<br />";
             echo "<br />";
             echo "<br />";
         }
