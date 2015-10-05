@@ -12,7 +12,7 @@ if (isset($_POST{'submit'})) {
         'phone' => $_POST{'phone'});
     echo $_POST{'email'}==null;
 
-    $select_query = sprintf("SELECT count(*) FROM users WHERE email = %s;", $_POST{'email'});
+    $select_query = sprintf("SELECT count(*) FROM users WHERE email = \"%s\";", $_POST{'email'});
 
     if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
         echo "This email is already registered. Redirecting to login page";
@@ -37,7 +37,9 @@ if (isset($_POST{'submit'})) {
     }
 
 
-} else {
+} 
+/*
+else {
     $form = <<<EOT
 <form action='register.php' method=POST>
 First Name: <input type='text' name='fname' /><br />
@@ -53,3 +55,4 @@ EOT;
 
 
 }
+*/
