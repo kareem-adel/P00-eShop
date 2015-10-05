@@ -1,6 +1,6 @@
 <?php
 require('config.php');
-
+session_start();
 
 if (isset($_POST{'submit'})) {
 
@@ -10,7 +10,7 @@ if (isset($_POST{'submit'})) {
         'pass' => $_POST{'password'},
         'address' => $_POST{'address'},
         'phone' => $_POST{'phone'});
-    echo $_POST{'email'}==null;
+    echo $_POST{'email'} == null;
 
     $select_query = sprintf("SELECT count(*) FROM users WHERE email = %s;", $_POST{'email'});
 
@@ -31,6 +31,7 @@ if (isset($_POST{'submit'})) {
                 echo $e->getMessage();
             }
             echo 'You are now registered. Redirecting to home page';
+            $_SESSION['email'] = $_POST{'email'};
             echo "<script>setTimeout(\"location.href = 'index.php';\",1500);</script>";
         }
 
