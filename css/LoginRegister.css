@@ -100,5 +100,7 @@
 
 #logo {
 	margin-bottom: 100px;
+	margin-right: auto;
 	margin-left: 50px;
+	width:400px;
 }

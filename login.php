@@ -6,7 +6,7 @@ if (isset($_POST{'submit'})) {
     if (!array_key_exists('email', $_SESSION)) {
         $email = $_POST{'email'};
         $password = $_POST{'password'};
-        $check_query = sprintf("SELECT * FROM users WHERE email = %s AND password = %s;", $email, $password);
+        $check_query = sprintf("SELECT * FROM users WHERE email = \"%s\" AND password = \"%s\";", $email, $password);
         if ($prepare = $dbh->query($check_query) and $prepare->fetchColumn() > 0) {
             $_SESSION['email'] = $email;
             echo 'You are now logged in';
@@ -14,7 +14,7 @@ if (isset($_POST{'submit'})) {
 
         } else {
             echo 'Wrong email or password';
-            echo "<script>setTimeout(\"location.href = 'login.php';\",1500);</script>";
+            echo "<script>setTimeout(\"location.href = 'LoginRegister.php';\",1500);</script>";
         }
 
     } else {
