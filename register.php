@@ -38,6 +38,9 @@ if (isset($_POST{'submit'})) {
 
 
 } 
+else {
+	header("location: LoginRegister.php");
+}
 /*
 else {
     $form = <<<EOT

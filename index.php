@@ -121,9 +121,24 @@ EOT;
 	<div style=\"float: right;\">
 	<form action='logout.php' method=POST>
 	<input type=\"submit\" name=\"Logout\" value=\"Log out\" class=\"btn btn-default\">
-	<br/>
 	</form>
 	</div>
+	<div style=\"float: right;\">
+	<form action='cart.php' method=POST>
+	<input type=\"submit\" name=\"cart\" value=\"Cart\" class=\"btn btn-default\">
+	</form>
+	</div>
+	<div style=\"float: right;\">
+	<form action='history.php' method=POST>
+	<input type=\"submit\" name=\"history\" value=\"History\" class=\"btn btn-default\">
+	</form>
+	</div>
+	<div style=\"float: right;\">
+	<form action='edit_profile.php' method=POST>
+	<input type=\"submit\" name=\"edit_profile\" value=\"Profile\" class=\"btn btn-default\">
+	</form>
+	</div>
+	
 	<div style=\"float: right;\">
 	<font color=\"green\" size=\"5\" style=\"margin-right: 20px;font-weight: bold;\">Welcome </font>
 	<font color=\"black\" size=\"5\" style=\"margin-right: 20px;font-weight: bold;\">{$UserEmail}</font>
@@ -142,14 +157,7 @@ if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
 		$item_description = $row['description'];
 		$item_amount = $row['amount'];
 		$encoded_image = base64_encode($row['image']);
-		/*
-        if (array_key_exists('email', $_SESSION)) {
-            $LoginOrProceed = 'add_to_cart.php';
-        } else {
-            $LoginOrProceed = 'LoginRegister.php';
-        }  
-		*/
-		
+
 		$available1="";
 		$available2="type='submit'";
 		if($item_amount <= 0){
