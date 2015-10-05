@@ -30,9 +30,9 @@ if (isset($_POST{'submit'})) {
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
-            echo 'You are now registered. Redirecting to home page';
+            echo 'You are now registered. Redirecting to your profile';
             $_SESSION['email'] = $_POST{'email'};
-            echo "<script>setTimeout(\"location.href = 'index.php';\",1500);</script>";
+            echo "<script>setTimeout(\"location.href = 'edit_profile.php';\",1500);</script>";
         }
 
     }
