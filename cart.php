@@ -1,7 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Omar
- * Date: 10/3/2015
- * Time: 6:15 AM
- */
+require('config.php');
+session_start();
+
+if (!array_key_exists('email', $_SESSION)) {
+    echo "You need to login. Redirecting to Login page.";
+    header("location: index.php");
+} else {
+
+}
