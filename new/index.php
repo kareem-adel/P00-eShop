@@ -19,6 +19,9 @@ if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
         $encoded_image = base64_encode($row['image']);
         echo "<img src='data:image/jpeg;base64,{$encoded_image}'>";
         echo '<br />';
+        echo $row['description'];
+        echo '<br />';
+        if($row['amount'] > 0){
             $form = <<<EOT
 <form action='add_to_cart.php' method=GET>
 <input type="hidden" name="product_id"  value="$item_id"/>
@@ -26,7 +29,12 @@ if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
 </form>
 EOT;
 
-        echo $form;
+            echo $form;
+        }
+        else{
+            echo "Sold out";
+        }
+
     }
 
 } else {
