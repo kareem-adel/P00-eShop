@@ -6,20 +6,10 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,600,700);
 @import url(http://fonts.googleapis.com/css?family=Abel);
 
-body.mode1 {
+body {
   font-family: 'Roboto', sans-serif;
-  background-image: url("../images/background.jpg");
+  background-color: f0f0f0;
   background-repeat: repeat-y;
-  background-size: contain;
-  position: relative;
-  font-weight:400px;
-}
-
-body.mode2 {
-  font-family: 'Roboto', sans-serif;
-  background-image: url("../images/background.jpg");
-  background-repeat: repeat-y;
-  background-size: cover;
   position: relative;
   font-weight:400px;
 }
@@ -2532,7 +2522,7 @@ h2.title {
 }
 
 #mItem{
-	background-color: white;
+	background-color: FFFFFF;
 	margin-left: auto;
 	margin-right: auto;
 	width: 350;

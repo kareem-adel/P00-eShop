@@ -7,29 +7,26 @@
     <link rel="stylesheet" href="css/main.css" />
 	<script type="text/javascript" src="js/LoginRegister.js"></script>
     <link rel="stylesheet" href="css/LoginRegister.css" />
-	
+
 	<script type="text/javascript">
 	
-function validate(){
-var pass2=document.getElementById("confirm-password").value;
-var pass1=document.getElementById("Rpassword").value;
-if(pass1!=pass2)
-	{
-	window.alert("Passwords do not match !");
-	return false;
-	}
-else
-	{
-	return true;
+function validate() {
+	var pass2 = document.getElementById("confirm-password").value;
+	var pass1 = document.getElementById("Rpassword").value;
+	if (pass1 != pass2) {
+		window.alert("Passwords do not match !");
+		return false;
+	} else {
+		return true;
 	}
 }
-</script>
+	</script>
 	
     <title>Your virtual shop</title>
 	
 	
   </head>
-  <body class="mode1">
+  <body>
   <div style="float: none; height: 250;"><div id="logo" style="float: left;"><a href="index.php"><h1><div><img src="images/eshop-logo.png" width="100" height="100" > Your virtual shop </img></div></h1></a></div>
   </body>
 </html>
@@ -143,29 +140,39 @@ if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
         $item_id = $row['id'];
 		$item_price = $row['price'];
 		$item_description = $row['description'];
-		
+		$item_amount = $row['amount'];
+		$encoded_image = base64_encode($row['image']);
+		/*
         if (array_key_exists('email', $_SESSION)) {
             $LoginOrProceed = 'add_to_cart.php';
         } else {
             $LoginOrProceed = 'LoginRegister.php';
         }  
+		*/
+		
+		$available1="";
+		$available2="type='submit'";
+		if($item_amount <= 0){
+			$available1="style=\"background-color:grey;\"";
+			$available2="";
+		}
 $form = <<<EOT
-<form action='{$LoginOrProceed}' method=POST>
-<div id="mItem">
+<form action='add_to_cart.php' method=GET>
+	<div id="mItem" $available1>
       <div class="product-image-wrapper">
         <div class="single-products">
-          <div class="productinfo text-center">
-            <img src="images/home/product1.jpg" alt="" width="400" height="200" />
+          <div class="productinfo text-center" style="margin-right: 10;margin-left: 10;margin-top: 10;">
+            <img src="data:image;base64, {$encoded_image}" alt="" width="400" height="200" />
             <h2>{$item_price}</h2>
             <p>{$item_name}</p>
             <a href="#" class="btn btn-default add-to-cart">Add to cart</a>
           </div>
-          <div class="product-overlay">
+          <div class="product-overlay" $available1>
             <div class="overlay-content">
               <h2>{$item_price}</h2>
               <p>{$item_description}</p>
 			  <input type="hidden" name="product_id"  value="{$item_id}"/>
-              <input type='submit' name='add_to_cart' value='add to cart' class="btn btn-default add-to-cart"></a>
+              <input $available2 name='add_to_cart' value='add to cart' class="btn btn-default add-to-cart""></a>
             </div>
           </div>
         </div>
@@ -177,7 +184,7 @@ EOT;
     }
 
 } else {
-    echo 'No Items to show';
+    echo '<h1 align="center"><font color="red">No Items to show</font></h1>';
 }
 
 // id =  '<?php echo htmlspecialchars($item_id); ?>

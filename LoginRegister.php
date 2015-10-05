@@ -26,7 +26,7 @@ else
 }
 </script>
   </head>
-  <body class="mode2">
+  <body>
 	
 	<div id="logo"><a href="index.php"><h1><div><img src="images/eshop-logo.png" width="100" height="100" > Your virtual shop </img></div></h1></a></div>
 	
