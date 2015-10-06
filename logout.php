@@ -26,7 +26,6 @@ session_destroy();
 $_SESSION = array();
 setcookie('email','',time()-1);
 setcookie('user_id','',time()-1);
-setcookie('user_image','',time()-1);
 setcookie('user_fname','',time()-1);
 
 								echo <<<EOT

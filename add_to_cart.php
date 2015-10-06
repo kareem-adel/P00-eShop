@@ -28,9 +28,6 @@ $_SESSION['email'] = $_COOKIE['email'];
 if(isset($_COOKIE['user_id'])){
 $_SESSION['user_id'] = $_COOKIE['user_id'];
 }
-if(isset($_COOKIE['user_image'])){
-$_SESSION['user_image'] = $_COOKIE['user_image'];
-}
 if(isset($_COOKIE['user_fname'])){
 $_SESSION['user_fname'] = $_COOKIE['user_fname'];
 }

@@ -159,9 +159,6 @@ $_SESSION['email'] = $_COOKIE['email'];
 if(isset($_COOKIE['user_id'])){
 $_SESSION['user_id'] = $_COOKIE['user_id'];
 }
-if(isset($_COOKIE['user_image'])){
-$_SESSION['user_image'] = $_COOKIE['user_image'];
-}
 if(isset($_COOKIE['user_fname'])){
 $_SESSION['user_fname'] = $_COOKIE['user_fname'];
 }
@@ -320,7 +317,7 @@ echo <<<EOT
       <div class="product-image-wrapper" >
         <div class="single-products">
           <div class="productinfo text-center" style="margin-right: 10;margin-left: 10;margin-top: 10;">
-            <img src="data:image;base64, {$encoded_image}" alt="" width="400" height="200" />
+            <img src="data:image;base64, {$encoded_image}" alt="" width="400" height="400" />
 			$SoldOut
             <h2>{$item_price}</h2>
             <p>{$item_name}</p>

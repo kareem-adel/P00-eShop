@@ -127,9 +127,6 @@ $_SESSION['email'] = $_COOKIE['email'];
 if(isset($_COOKIE['user_id'])){
 $_SESSION['user_id'] = $_COOKIE['user_id'];
 }
-if(isset($_COOKIE['user_image'])){
-$_SESSION['user_image'] = $_COOKIE['user_image'];
-}
 if(isset($_COOKIE['user_fname'])){
 $_SESSION['user_fname'] = $_COOKIE['user_fname'];
 }
@@ -221,11 +218,9 @@ echo "</div>";
                     $update_order = sprintf("UPDATE users SET firstname='%s', lastname='%s', email='%s', address='%s', phone='%s', image='%s' WHERE id = %s ", $fname, $lname, $email, $address, $phone, $data, $_SESSION['user_id']);
                     $stmt = $dbh->query($update_order);
                     $_SESSION['email'] = $email;
-                    $_SESSION['user_image'] = $data;
                     $_SESSION['user_fname'] = $fname;
                     if(isset($_COOKIE['email'])){
                       $_COOKIE['email'] = $_email;
-                      $_COOKIE['user_image'] = $data;
                       $_COOKIE['user_fname'] = $fname;
                     }
                 } else {
