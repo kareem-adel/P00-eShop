@@ -35,7 +35,7 @@ $_SESSION['user_fname'] = $_COOKIE['user_fname'];
 require("config.php");
 
 if (!isset($_SESSION['email'])) {
-    header("location: LoginRegister.php");
+	echo "<script>window.location.assign(\"LoginRegister.php\");</script>";
 } else {
 	$UserEmail = $_SESSION['email'];
     echo "
@@ -168,6 +168,6 @@ EOT;
             }
 
     } else {
-        header("location: edit_profile.php");
+		echo "<script>window.location.assign(\"edit_profile.php\");</script>";
 		}
 }

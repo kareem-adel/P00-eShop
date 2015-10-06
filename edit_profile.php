@@ -133,7 +133,7 @@ $_SESSION['user_fname'] = $_COOKIE['user_fname'];
 
 
 if (!isset($_SESSION['email'])) {
-    header("location: LoginRegister.php");
+	echo "<script>window.location.assign(\"LoginRegister.php\");</script>";
 } else {
 	
 			$UserEmail = $_SESSION['email'];
@@ -179,15 +179,12 @@ if (!isset($_SESSION['email'])) {
 	$final_image
 	</div>
 	
-	";
-    
-
-echo "</div>";
+	</div>";
 	
     if (isset($_GET{'remove_image'})) {
         $update_order = sprintf("UPDATE users SET image=null WHERE id = %s ", $_SESSION['user_id']);
         $stmt = $dbh->query($update_order);
-        header("location: edit_profile.php");
+		echo "<script>window.location.assign(\"edit_profile.php\");</script>";
     } elseif (isset($_POST{'submit'})) {
         $tmpName = $_FILES['image']['tmp_name'];
         $fname = $_POST['fname'];

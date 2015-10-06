@@ -67,7 +67,7 @@ EOT;
 		
     } else {
         if ($_POST{'email'} == null or $_POST{'password'} == null) {
-            header("Location: LoginRegister.php");
+			echo "<script>window.location.assign(\"LoginRegister.php\");</script>";
             exit();
         } else {
             try {
@@ -127,7 +127,7 @@ EOT;
 
 } 
 else {
-	header("location: LoginRegister.php?state=register");
+	echo "<script>window.location.assign(\"LoginRegister.php?state=register\");</script>";
 }
 /*
 else {

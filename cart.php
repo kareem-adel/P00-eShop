@@ -40,7 +40,7 @@ $_SESSION['user_fname'] = $_COOKIE['user_fname'];
 
       require("config.php");
       if (!isset($_SESSION['email'])) {
-          header("location: LoginRegister.php");
+		  echo "<script>window.location.assign(\"LoginRegister.php\");</script>";
       } else {
 		$UserEmail = $_SESSION['email'];
   $Userfname = $_SESSION['user_fname'];
@@ -104,13 +104,13 @@ echo "</div>";
 
 
               if (!array_key_exists('email', $_SESSION)) {
-                  header("location: LoginRegister.php");
+				  echo "<script>window.location.assign(\"LoginRegister.php\");</script>";
               } else {
                   if (isset($_GET{'remove_from_cart'})) {
 
                       $delete_query = sprintf("DELETE FROM orders WHERE user_id = %s AND product_id = %s", $_SESSION['user_id'], $_GET['product_id']);
                       $dbh->query($delete_query);
-                      header("location: cart.php");
+					  echo "<script>window.location.assign(\"cart.php\");</script>";
 
                   } elseif (isset($_GET{'checkout'})) {
                       $message = "";
@@ -138,7 +138,7 @@ echo "</div>";
                                       $update_amount_in_products = sprintf("UPDATE products SET amount= amount-%s  WHERE id = %s", $row['order_amount'], $row['product_id']);
                                       $stmt = $dbh->query($update_amount_in_products);
                                   }
-                                  header("location: history.php");
+								  echo "<script>window.location.assign(\"history.php\");</script>";
                               }
                           }
 

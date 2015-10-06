@@ -34,7 +34,7 @@ $_SESSION['user_fname'] = $_COOKIE['user_fname'];
 
 
 if (!isset($_SESSION['email'])) {
-    header("location: LoginRegister.php");
+	echo "<script>window.location.assign(\"LoginRegister.php\");</script>";
 } else {
 		$UserEmail = $_SESSION['email'];
   $Userfname = $_SESSION['user_fname'];
@@ -156,6 +156,6 @@ EOT;
 
 
     } else {
-        header("location: index.php");
+		echo "<script>window.location.assign(\"index.php\");</script>";
     }
 }

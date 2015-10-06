@@ -143,9 +143,9 @@ EOT;
 EOT;
         }
     }else{
-		header("location: index.php");
+		echo "<script>window.location.assign(\"index.php\");</script>";
 	}
 } else {
-    header("location: index.php");
+	echo "<script>window.location.assign(\"index.php\");</script>";
 }
 
