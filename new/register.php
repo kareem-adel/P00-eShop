@@ -12,9 +12,12 @@ if (isset($_POST{'submit'})) {
         'phone' => $_POST{'phone'});
     echo $_POST{'email'} == null;
 
-    $select_query = sprintf("SELECT count(*) FROM users WHERE email = %s;", $_POST{'email'});
+    $select_query = sprintf("SELECT count(*) FROM users WHERE email = '%s';", $_POST{'email'});
+    $result = $dbh->prepare($select_query);
+    $result->execute();
+    $number_of_records = $result->fetchColumn();
 
-    if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
+    if ($number_of_records > 0) {
         echo "This email is already registered. Redirecting to login page";
         echo "<script>setTimeout(\"location.href = 'login.php';\",1500);</script>";
 
@@ -31,7 +34,14 @@ if (isset($_POST{'submit'})) {
                 echo $e->getMessage();
             }
             echo 'You are now registered. Redirecting to your profile';
-            $_SESSION['email'] = $_POST{'email'};
+            $check_query = sprintf("SELECT * FROM users WHERE email = '%s';", $_POST{'email'});
+            if ($prepare = $dbh->query($check_query) and $prepare->fetchColumn() > 0) {
+                $_SESSION['email'] = $_POST{'email'};
+
+                foreach ($dbh->query($check_query) as $row) {
+                    $_SESSION['user_id'] = $row['id'];
+                }
+            }
             echo "<script>setTimeout(\"location.href = 'edit_profile.php';\",1500);</script>";
         }
 

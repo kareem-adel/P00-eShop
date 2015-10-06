@@ -8,7 +8,7 @@ if (!array_key_exists('email', $_SESSION)) {
         if (!array_key_exists('email', $_SESSION)) {
             $email = $_POST{'email'};
             $password = $_POST{'password'};
-            $check_query = sprintf("SELECT * FROM users WHERE email = %s AND password = %s;", $email, $password);
+            $check_query = sprintf("SELECT * FROM users WHERE email = '%s' AND password = '%s';", $email, $password);
             if ($prepare = $dbh->query($check_query) and $prepare->fetchColumn() > 0) {
                 $_SESSION['email'] = $email;
 
