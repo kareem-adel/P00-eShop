@@ -166,7 +166,7 @@ if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
 		}
 $form = <<<EOT
 <form action='add_to_cart.php' method=GET>
-	<div id="mItem" class="panel panel-login" $available1>
+	<div id="mItem" class="panel" $available1>
       <div class="product-image-wrapper">
         <div class="single-products">
           <div class="productinfo text-center" style="margin-right: 10;margin-left: 10;margin-top: 10;">

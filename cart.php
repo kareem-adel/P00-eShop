@@ -23,7 +23,7 @@
           </div>
         </a>
       </div><?php 
-              session_start();
+      session_start();
       require("config.php");
       if (!array_key_exists('email', $_SESSION)) {
           header("location: LoginRegister.php");
@@ -66,7 +66,8 @@
               <li class="row list-inline columnCaptions">
               <span>QTY</span> 
               <span>ITEM</span> 
-              <span>Price</span></li><?php
+              <span>Price</span></li>
+			  <?php
               require('config.php');
 
 
