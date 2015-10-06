@@ -45,9 +45,20 @@ $_SESSION['user_fname'] = $_COOKIE['user_fname'];
       if (!isset($_SESSION['email'])) {
           header("location: LoginRegister.php");
       } else {
-              $UserEmail = $_SESSION['email'];
-          echo "
-              <div style=\"float: right;\">
+		$UserEmail = $_SESSION['email'];
+  $Userfname = $_SESSION['user_fname'];
+  
+  $final_image="<img width=\"30\" height=\"30\" src=\"images/avatar.png\"/>";
+  $select_query = sprintf("SELECT * FROM users WHERE email = \"%s\" and image is not null;", $UserEmail);
+  if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
+    foreach ($dbh->query($select_query) as $row) {
+        $encoded_image = base64_encode($row['image']);
+        $final_image="<img width=\"30\" height=\"30\" src='data:image/jpeg;base64,{$encoded_image}'>";
+    }
+
+}
+    echo "
+	<div style=\"float: right;\">
 	<form action='logout.php' method=POST>
 	<input type=\"submit\" name=\"Logout\" value=\"Log out\" class=\"btn btn-default\">
 	</form>
@@ -67,14 +78,21 @@ $_SESSION['user_fname'] = $_COOKIE['user_fname'];
 	<input type=\"submit\" name=\"edit_profile\" value=\"Profile\" class=\"btn btn-default\">
 	</form>
 	</div>
-              <div style=\"float: right;\">
-              <font color=\"green\" size=\"5\" style=\"margin-right: 20px;font-weight: bold;\">Welcome </font>
-              <font color=\"black\" size=\"5\" style=\"margin-right: 20px;font-weight: bold;\">{$UserEmail}</font>
-              </div>
-              ";
-          
+	
+	<div style=\"float: right;\">
+	<font color=\"green\" size=\"5\" style=\"margin-right: 20px;font-weight: bold;\">Welcome </font>
+	<font color=\"black\" size=\"5\" style=\"margin-right: 20px;font-weight: bold;\">{$Userfname}</font>
+	</div>
+	
+	<div style=\"float: right;margin-right:10px\">
+	$final_image
+	</div>
+	
+	";
+    
+
+echo "</div>";
       }
-      echo "</div>";
               ?>
       <div style="margin-top: 50px;">
         <div class="container text-center">

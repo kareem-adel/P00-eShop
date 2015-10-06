@@ -25,7 +25,7 @@ session_start();
 				confirmButtonText : "OK",
 				closeOnConfirm : false
 			}, function () {
-				window.location.assign("LoginRegister.php");
+				window.location.assign("LoginRegister.php?state=register");
 			});
 			return false;
 		}
@@ -250,18 +250,16 @@ EOT;
 } else {
 	$UserEmail = $_SESSION['email'];
   $Userfname = $_SESSION['user_fname'];
-  $encoded_image=null;
-  $select_query = sprintf("SELECT * FROM users WHERE email = \"%s\";", $UserEmail);
+  
+  $final_image="<img width=\"30\" height=\"30\" src=\"images/avatar.png\"/>";
+  $select_query = sprintf("SELECT * FROM users WHERE email = \"%s\" and image is not null;", $UserEmail);
   if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
     foreach ($dbh->query($select_query) as $row) {
         $encoded_image = base64_encode($row['image']);
-        echo "<img src='data:image/jpeg;base64,{$encoded_image}'>";
+        $final_image="<img width=\"30\" height=\"30\" src='data:image/jpeg;base64,{$encoded_image}'>";
     }
 
 }
-	
-	
-	
     echo "
 	<div style=\"float: right;\">
 	<form action='logout.php' method=POST>

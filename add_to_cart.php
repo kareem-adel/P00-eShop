@@ -16,7 +16,7 @@ session_start();
 	
   </head>
   <body>
-  <div style="float: none; height: 150;"><div id="logo" style="float: left;"><a href="index.php"><h1><div><img src="images/eshop-logo.png" width="100" height="100" > Your virtual shop </img></div></h1></a></div></div>
+  <div style="float: none; height: 200;"><div id="logo" style="float: left;"><a href="index.php"><h1><div><img src="images/eshop-logo.png" width="100" height="100" > Your virtual shop </img></div></h1></a></div>
   </body>
 </html>
 
@@ -39,6 +39,54 @@ $_SESSION['user_fname'] = $_COOKIE['user_fname'];
 if (!isset($_SESSION['email'])) {
     header("location: LoginRegister.php");
 } else {
+		$UserEmail = $_SESSION['email'];
+  $Userfname = $_SESSION['user_fname'];
+  
+  $final_image="<img width=\"30\" height=\"30\" src=\"images/avatar.png\"/>";
+  $select_query = sprintf("SELECT * FROM users WHERE email = \"%s\" and image is not null;", $UserEmail);
+  if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
+    foreach ($dbh->query($select_query) as $row) {
+        $encoded_image = base64_encode($row['image']);
+        $final_image="<img width=\"30\" height=\"30\" src='data:image/jpeg;base64,{$encoded_image}'>";
+    }
+
+}
+    echo "
+	<div style=\"float: right;\">
+	<form action='logout.php' method=POST>
+	<input type=\"submit\" name=\"Logout\" value=\"Log out\" class=\"btn btn-default\">
+	</form>
+	</div>
+	<div style=\"float: right;\">
+	<form action='cart.php' method=POST>
+	<input type=\"submit\" name=\"cart\" value=\"Cart\" class=\"btn btn-default\">
+	</form>
+	</div>
+	<div style=\"float: right;\">
+	<form action='history.php' method=POST>
+	<input type=\"submit\" name=\"history\" value=\"History\" class=\"btn btn-default\">
+	</form>
+	</div>
+	<div style=\"float: right;\">
+	<form action='edit_profile.php' method=POST>
+	<input type=\"submit\" name=\"edit_profile\" value=\"Profile\" class=\"btn btn-default\">
+	</form>
+	</div>
+	
+	<div style=\"float: right;\">
+	<font color=\"green\" size=\"5\" style=\"margin-right: 20px;font-weight: bold;\">Welcome </font>
+	<font color=\"black\" size=\"5\" style=\"margin-right: 20px;font-weight: bold;\">{$Userfname}</font>
+	</div>
+	
+	<div style=\"float: right;margin-right:10px\">
+	$final_image
+	</div>
+	
+	";
+    
+
+echo "</div>";
+
     if (isset($_GET{'submit'})) {
         $data = array('amount' => $_GET{'quantity'},
             'user_id' => $_SESSION['user_id'],

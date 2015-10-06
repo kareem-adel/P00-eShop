@@ -50,9 +50,69 @@ session_start();
 		return true;
 	}
 }
-  
+  function validateEdit() {
+
+		var fname = document.getElementById("fname").value;
+		var lname = document.getElementById("lname").value;
+		var Remail = document.getElementById("email").value;
+		var address = document.getElementById("address").value;
+		var phone = document.getElementById("phone").value;
+		if (fname == null || fname == '') {
+			swal({
+				title : "Please insert your First name !",
+				text : "Your First name is empty !",
+				confirmButtonText : "OK",
+				closeOnConfirm : false
+			}, function () {
+				window.location.assign("edit_profile.php?state=register");
+			});
+			return false;
+		} else if (lname == null || lname == '') {
+			swal({
+				title : "Please insert your Last name !",
+				text : "Your Last name is empty !",
+				confirmButtonText : "OK",
+				closeOnConfirm : false
+			}, function () {
+				window.location.assign("edit_profile.php?state=register");
+			});
+			return false;
+		} else if (email == null || email == '') {
+			swal({
+				title : "Please insert your Email !",
+				text : "Your Email is empty !",
+				confirmButtonText : "OK",
+				closeOnConfirm : false
+			}, function () {
+				window.location.assign("edit_profile.php?state=register");
+			});
+			return false;
+		} else if (address == null || address == '') {
+			swal({
+				title : "Please insert your address !",
+				text : "Your address is empty !",
+				confirmButtonText : "OK",
+				closeOnConfirm : false
+			}, function () {
+				window.location.assign("edit_profile.php?state=register");
+			});
+			return false;
+		} else if (phone == null || phone == '') {
+			swal({
+				title : "Please insert your phone !",
+				text : "Your phone is empty !",
+				confirmButtonText : "OK",
+				closeOnConfirm : false
+			}, function () {
+				window.location.assign("edit_profile.php?state=register");
+			});
+			return false;
+		} 
+		
+		return true;
+	}
 </script>
-	
+		
   </head>
   <body>
   <div style="float: none; height: 250;"><div id="logo" style="float: left;"><a href="index.php"><h1><div><img src="images/eshop-logo.png" width="100" height="100" > Your virtual shop </img></div></h1></a></div>
@@ -79,7 +139,18 @@ if (!isset($_SESSION['email'])) {
     header("location: LoginRegister.php");
 } else {
 	
-	$UserEmail = $_SESSION['email'];
+			$UserEmail = $_SESSION['email'];
+  $Userfname = $_SESSION['user_fname'];
+  
+  $final_image="<img width=\"30\" height=\"30\" src=\"images/avatar.png\"/>";
+  $select_query = sprintf("SELECT * FROM users WHERE email = \"%s\" and image is not null;", $UserEmail);
+  if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
+    foreach ($dbh->query($select_query) as $row) {
+        $encoded_image = base64_encode($row['image']);
+        $final_image="<img width=\"30\" height=\"30\" src='data:image/jpeg;base64,{$encoded_image}'>";
+    }
+
+}
     echo "
 	<div style=\"float: right;\">
 	<form action='logout.php' method=POST>
@@ -104,10 +175,17 @@ if (!isset($_SESSION['email'])) {
 	
 	<div style=\"float: right;\">
 	<font color=\"green\" size=\"5\" style=\"margin-right: 20px;font-weight: bold;\">Welcome </font>
-	<font color=\"black\" size=\"5\" style=\"margin-right: 20px;font-weight: bold;\">{$UserEmail}</font>
+	<font color=\"black\" size=\"5\" style=\"margin-right: 20px;font-weight: bold;\">{$Userfname}</font>
 	</div>
+	
+	<div style=\"float: right;margin-right:10px\">
+	$final_image
+	</div>
+	
 	";
-	echo "</div>";
+    
+
+echo "</div>";
 	
     if (isset($_GET{'remove_image'})) {
         $update_order = sprintf("UPDATE users SET image=null WHERE id = %s ", $_SESSION['user_id']);
@@ -214,7 +292,7 @@ EOT;
             <div class="panel-body">
               <div class="row">
                 <div class="col-lg-12">
-                  <form action="edit_profile.php" method="post" role="form" enctype='multipart/form-data'>
+                  <form action="edit_profile.php" method="post" role="form" enctype='multipart/form-data' onsubmit="return validateEdit()">
 					<div style="margin-right: auto;margin-left: auto;margin-bottom: 10px;width: 100px">
 					  <div id="mProfileImage" style="margin-right: auto;margin-left: auto;">$final_image</div>
 					  <div style="margin-right: auto;margin-left: -10;"><input id="imgSrc" class="btn btn-default" type='file' name='image' accept='image/*' value="Choose Image"></input></div>

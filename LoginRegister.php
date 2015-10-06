@@ -23,7 +23,7 @@
 				confirmButtonText : "OK",
 				closeOnConfirm : false
 			}, function () {
-				window.location.assign("LoginRegister.php");
+				window.location.assign("LoginRegister.php?state=register");
 			});
 			return false;
 		}
