@@ -8,23 +8,136 @@
     <script type="text/javascript" src="js/LoginRegister.js"></script>
     <link rel="stylesheet" href="css/LoginRegister.css" />
 	<link rel="stylesheet" href="css/main.css" />
+	<script src="js/sweetalert.min.js"></script> 
+<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
 	
 	<script type="text/javascript">
-	
-function validate(){
-var pass2=document.getElementById("confirm-password").value;
-var pass1=document.getElementById("Rpassword").value;
-if(pass1!=pass2)
-	{
-	window.alert("Passwords do not match !");
-	return false;
+
+	function validateReg() {
+		var pass2 = document.getElementById("confirm-password").value;
+		var pass1 = document.getElementById("Rpassword").value;
+		if (pass1 != pass2) {
+			swal({
+				title : "Retype your password",
+				text : "Passwords do not match !",
+				confirmButtonText : "OK",
+				closeOnConfirm : false
+			}, function () {
+				window.location.assign("LoginRegister.php");
+			});
+			return false;
+		}
+
+		var fname = document.getElementById("fname").value;
+		var lname = document.getElementById("lname").value;
+		var Remail = document.getElementById("Remail").value;
+		var Rpassword = document.getElementById("Rpassword").value;
+		var confirm_password = document.getElementById("confirm-password").value;
+		var address = document.getElementById("address").value;
+		var phone = document.getElementById("phone").value;
+		if (fname == null || fname == '') {
+			swal({
+				title : "Please insert your First name !",
+				text : "Your First name is empty !",
+				confirmButtonText : "OK",
+				closeOnConfirm : false
+			}, function () {
+				window.location.assign("LoginRegister.php?state=register");
+			});
+			return false;
+		} else if (lname == null || lname == '') {
+			swal({
+				title : "Please insert your Last name !",
+				text : "Your Last name is empty !",
+				confirmButtonText : "OK",
+				closeOnConfirm : false
+			}, function () {
+				window.location.assign("LoginRegister.php?state=register");
+			});
+			return false;
+		} else if (Remail == null || Remail == '') {
+			swal({
+				title : "Please insert your Email !",
+				text : "Your Email is empty !",
+				confirmButtonText : "OK",
+				closeOnConfirm : false
+			}, function () {
+				window.location.assign("LoginRegister.php?state=register");
+			});
+			return false;
+		} else if (Rpassword == null || Rpassword == '') {
+			swal({
+				title : "Please insert your password !",
+				text : "Your password is empty !",
+				confirmButtonText : "OK",
+				closeOnConfirm : false
+			}, function () {
+				window.location.assign("LoginRegister.php?state=register");
+			});
+			return false;
+		} else if (confirm_password == null || confirm_password == '') {
+			swal({
+				title : "Please insert your confirmation password !",
+				text : "Your confirmation password is empty !",
+				confirmButtonText : "OK",
+				closeOnConfirm : false
+			}, function () {
+				window.location.assign("LoginRegister.php?state=register");
+			});
+			return false;
+		} else if (address == null || address == '') {
+			swal({
+				title : "Please insert your address !",
+				text : "Your address is empty !",
+				confirmButtonText : "OK",
+				closeOnConfirm : false
+			}, function () {
+				window.location.assign("LoginRegister.php?state=register");
+			});
+			return false;
+		} else if (phone == null || phone == '') {
+			swal({
+				title : "Please insert your phone !",
+				text : "Your phone is empty !",
+				confirmButtonText : "OK",
+				closeOnConfirm : false
+			}, function () {
+				window.location.assign("LoginRegister.php?state=register");
+			});
+			return false;
+		} 
+		
+		return true;
 	}
-else
-	{
-	return true;
+
+	function validateLogin() {
+		var Lemail = document.getElementById("Lemail").value;
+		var Lpassword = document.getElementById("Lpassword").value;
+		if (Lemail == null || Lemail == '') {
+			swal({
+				title : "Please insert your email !",
+				text : "Your email is empty !",
+				confirmButtonText : "OK",
+				closeOnConfirm : false
+			}, function () {
+				window.location.assign("LoginRegister.php");
+			});
+			return false;
+		} else if (Lpassword == null || Lpassword == '') {
+			swal({
+				title : "Please insert your password !",
+				text : "Your password is empty !",
+				confirmButtonText : "OK",
+				closeOnConfirm : false
+			}, function () {
+				window.location.assign("LoginRegister.php");
+			});
+			return false;
+		} else {
+			return true;
+		}
 	}
-}
-</script>
+	</script>
   </head>
   <body>
 	
@@ -48,7 +161,7 @@ else
             <div class="panel-body">
               <div class="row">
                 <div class="col-lg-12">
-                  <form id="login-form" action="login.php" method="post" role="form" style="display: block;">
+                  <form id="login-form" action="login.php" method="post" role="form" style="display: block;" onsubmit="return validateLogin()">
                     <div class="form-group">
                       <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email"
                       value="" />
@@ -69,7 +182,7 @@ else
                       </div>
                     </div>
                   </form>
-                  <form id="register-form" action="register.php" method="post" role="form" onsubmit="return validate()"
+                  <form id="register-form" action="register.php" method="post" role="form" onsubmit="return validateReg()"
                   style="display: none;">
                     <div class="form-group">
                       <input type="text" name="fname" id="fname" tabindex="1" class="form-control" placeholder="First name"
@@ -80,7 +193,7 @@ else
                       value="" />
                     </div>
                     <div class="form-group">
-                      <input type="email" name="email" id="email" tabindex="3" class="form-control" placeholder="Email Address"
+                      <input type="email" name="email" id="Remail" tabindex="3" class="form-control" placeholder="Email Address"
                       value="" />
                     </div>
                     <div class="form-group">
@@ -115,5 +228,32 @@ else
         </div>
       </div>
     </div>
+	<?php
+	
+		if(isset($_GET{'state'})){
+			$tmp =  $_GET{'state'};	
+			if($tmp == 'register'){
+				echo <<<EOT
+		<script>$(function() {
+		$("#register-form").delay(100).fadeIn(100);
+ 		$("#login-form").fadeOut(100);
+		$('#login-form-link').removeClass('active');
+		$('#register-form-link').addClass('active');
+	});</script>
+	
+EOT;
+
+		}else if($tmp == 'login'){
+			echo <<<EOT
+		<script>$(function() {
+		$("#login-form").delay(100).fadeIn(100);
+ 		$("#register-form").fadeOut(100);
+		$('#register-form-link').removeClass('active');
+		$('#login-form-link').addClass('active');
+	}
+EOT;
+			}
+		}
+	 ?>
   </body>
 </html>
