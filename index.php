@@ -249,6 +249,16 @@ if (!isset($_SESSION['email'])) {
 EOT;
 } else {
 	$UserEmail = $_SESSION['email'];
+	$Userfname = $_SESSION['user_fname'];
+	if(isset($_SESSION['user_image'])){
+		$image = $_SESSION['user_image'];
+		$encoded_image = base64_encode($image);
+		$final_image = "<img width=\"30\" height=\"30\" src=\"data:image/*;base64,$encoded_image\"/>";
+	}else{
+	$final_image = "<img width=\"30\" height=\"30\" src=\"images/avatar.png\"/>";
+	}
+	
+	
     echo "
 	<div style=\"float: right;\">
 	<form action='logout.php' method=POST>
@@ -273,8 +283,13 @@ EOT;
 	
 	<div style=\"float: right;\">
 	<font color=\"green\" size=\"5\" style=\"margin-right: 20px;font-weight: bold;\">Welcome </font>
-	<font color=\"black\" size=\"5\" style=\"margin-right: 20px;font-weight: bold;\">{$UserEmail}</font>
+	<font color=\"black\" size=\"5\" style=\"margin-right: 20px;font-weight: bold;\">{$Userfname}</font>
 	</div>
+	
+	<div style=\"float: right;margin-right:10px\">
+	$final_image
+	</div>
+	
 	";
     
 }
