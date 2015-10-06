@@ -85,6 +85,8 @@ EOT;
 
                 foreach ($dbh->query($check_query) as $row) {
                     $_SESSION['user_id'] = $row['id'];
+                    $_SESSION['user_image'] = $row['image'];
+                    $_SESSION['user_fname'] = $row['firstname'];
                 }
 			}
 			

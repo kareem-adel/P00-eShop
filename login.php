@@ -26,6 +26,12 @@ $_SESSION['email'] = $_COOKIE['email'];
 if(isset($_COOKIE['user_id'])){
 $_SESSION['user_id'] = $_COOKIE['user_id'];
 }
+if(isset($_COOKIE['user_image'])){
+$_SESSION['user_image'] = $_COOKIE['user_image'];
+}
+if(isset($_COOKIE['user_fname'])){
+$_SESSION['user_fname'] = $_COOKIE['user_fname'];
+}
 
 if (!isset($_SESSION['email'])) {
     if (isset($_POST{'submit'})) {
@@ -38,11 +44,15 @@ if (!isset($_SESSION['email'])) {
 
                 foreach ($dbh->query($check_query) as $row) {
                     $_SESSION['user_id'] = $row['id'];
+                    $_SESSION['user_image'] = $row['image'];
+                    $_SESSION['user_fname'] = $row['firstname'];
                 }
 				
 				if(isset($_POST{'remember'}) and $_POST{'remember'}==1){
 					setcookie('email',$email,time()+3600);
 					setcookie('user_id',$row['id'],time()+3600);
+          setcookie('user_image',$row['image'],time()+3600);
+          setcookie('user_fname',$row['firstname'],time()+3600);
 				}
 				
 						echo <<<EOT
