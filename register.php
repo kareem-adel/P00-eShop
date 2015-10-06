@@ -110,8 +110,8 @@ EOT;
               <div class="row">
                 <div class="col-lg-12">
 					
-					<font size="5" color="green">You are now registered and logged in. Redirecting to home page.</font>
-                    <script>setTimeout("location.href = 'index.php';",2000);</script>
+					<font size="5" color="green">You are now registered and logged in. Redirecting to your profile.</font>
+                    <script>setTimeout("location.href = 'edit_profile.php';",2000);</script>
 					
                 </div>
               </div>
