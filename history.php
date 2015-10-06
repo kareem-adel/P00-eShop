@@ -4,20 +4,6 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/bootsnipp.min.css" />
     <link rel="stylesheet" href="css/main.css" />
-
-	<script type="text/javascript">
-	
-function validate() {
-	var pass2 = document.getElementById("confirm-password").value;
-	var pass1 = document.getElementById("Rpassword").value;
-	if (pass1 != pass2) {
-		window.alert("Passwords do not match !");
-		return false;
-	} else {
-		return true;
-	}
-}
-	</script>
 	
     <title>Your virtual shop</title>
 	
