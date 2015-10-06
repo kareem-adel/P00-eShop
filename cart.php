@@ -159,7 +159,13 @@ EOT;
                       echo "<br />";
                       echo "<br />";
                       echo "<br />";
-                      $form = <<<EOT
+                      
+                      $select_query = sprintf("SELECT count(*) FROM orders WHERE user_id = %s AND is_confirmed=0", $_SESSION['user_id']);
+                      $result = $dbh->prepare($select_query);
+                      $result->execute();
+                      $number_of_records1 = $result->fetchColumn();
+                      if($number_of_records1 > 0){
+                        $form = <<<EOT
                                                       <li class="row totals">
                                                               <span class="itemName">Total:</span>
                                                               <span class="price">$ {$total_cost}</span>
@@ -168,7 +174,20 @@ EOT;
                                                               </form>
                                                       </li>
 EOT;
+                      }else{
+                        $form = <<<EOT
+                                                      <li class="row totals">
+                                                              <span class="itemName">Total:</span>
+                                                              <span class="price">$ {$total_cost}</span>
+                                                              <form action='cart.php' method=GET>
+                                                              <span class="order"> <input type='submit' name='checkout' class="btn btn-default" value="Checkout" disabled="disabled"></input></span>
+                                                              </form>
+                                                      </li>
+EOT;
+                      }
+
                       echo $form;
+
                   }
               }
 
