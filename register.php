@@ -128,7 +128,7 @@ EOT;
 
 } 
 else {
-	header("location: LoginRegister.php");
+	header("location: LoginRegister.php?state=register");
 }
 /*
 else {
