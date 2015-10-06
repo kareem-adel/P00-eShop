@@ -59,8 +59,14 @@
 <?php
 require('config.php');
 session_start();
+if(isset($_COOKIE['email'])){
+$_SESSION['email'] = $_COOKIE['email'];
+}
+if(isset($_COOKIE['user_id'])){
+$_SESSION['user_id'] = $_COOKIE['user_id'];
+}
 
-if (!array_key_exists('email', $_SESSION)) {
+if (!isset($_SESSION['email'])) {
     header("location: LoginRegister.php");
 } else {
 	
@@ -118,8 +124,7 @@ if (!array_key_exists('email', $_SESSION)) {
             $result->execute();
             $number_of_records2 = $result->fetchColumn();
             if ($number_of_records1 <> $number_of_records2) {
-                echo "This email is already registered. You can not change your email to it.";
-                echo "<script>setTimeout(\"location.href = 'edit_profile.php';\",1500);</script>";
+				echo "<script>swal({   title: \"Used Email !\",   text: \"$email is already registered. You can not change your email to it.\",   confirmButtonText: \"OK\",   closeOnConfirm: false }, function(){  window.location.assign(\"edit_profile.php\"); });</script>";
             } else {
                 if ($tmpName <> null) {
                     $fp = fopen($tmpName, 'r');

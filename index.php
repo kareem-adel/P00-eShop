@@ -34,7 +34,14 @@ function validate() {
 <?php
 session_start();
 require("config.php");
-if (!array_key_exists('email', $_SESSION)) {
+
+if(isset($_COOKIE['email'])){
+$_SESSION['email'] = $_COOKIE['email'];
+}
+if(isset($_COOKIE['user_id'])){
+$_SESSION['user_id'] = $_COOKIE['user_id'];
+}
+if (!isset($_SESSION['email'])) {
     echo <<<EOT
 	<div id="ILoginRegister" style="float: right;">
           <div class="panel panel-login">
@@ -164,7 +171,7 @@ if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
 			$available1="style=\"background-color:grey;\"";
 			$available2="";
 		}
-$form = <<<EOT
+echo <<<EOT
 <form action='add_to_cart.php' method=GET>
 	<div id="mItem" class="panel" $available1>
       <div class="product-image-wrapper">
@@ -188,7 +195,6 @@ $form = <<<EOT
     </div>
 </form>
 EOT;
-        echo $form;
     }
 
 } else {

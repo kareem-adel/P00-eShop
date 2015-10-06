@@ -16,9 +16,14 @@
 <?php
 require('config.php');
 session_start();
+if(isset($_COOKIE['email'])){
+$_SESSION['email'] = $_COOKIE['email'];
+}
+if(isset($_COOKIE['user_id'])){
+$_SESSION['user_id'] = $_COOKIE['user_id'];
+}
 
-
-if (!array_key_exists('email', $_SESSION)) {
+if (!isset($_SESSION['email'])) {
     header("location: LoginRegister.php");
 } else {
 

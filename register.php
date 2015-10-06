@@ -1,6 +1,25 @@
+<html>
+  <head>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/bootsnipp.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+	<script type="text/javascript" src="js/LoginRegister.js"></script>
+    <link rel="stylesheet" href="css/LoginRegister.css" />
+	
+    <title>Your virtual shop</title>
+	
+	
+  </head>
+  <body>
+  <div style="float: none; height: 250;"><div id="logo" style="float: left;"><a href="index.php"><h1><div><img src="images/eshop-logo.png" width="100" height="100" > Your virtual shop </img></div></h1></a></div></div>
+  </body>
+</html>
+
 <?php
 require('config.php');
-
+session_start();
 
 if (isset($_POST{'submit'})) {
 
@@ -10,17 +29,43 @@ if (isset($_POST{'submit'})) {
         'pass' => $_POST{'password'},
         'address' => $_POST{'address'},
         'phone' => $_POST{'phone'});
-    echo $_POST{'email'}==null;
+    //echo $_POST{'email'}==null;
 
     $select_query = sprintf("SELECT count(*) FROM users WHERE email = \"%s\";", $_POST{'email'});
 
     if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
-        echo "This email is already registered. Redirecting to login page";
-        echo "<script>setTimeout(\"location.href = 'LoginRegister.php';\",1500);</script>";
-
+								echo <<<EOT
+	<div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="panel panel-login">
+            <div class="panel-heading">
+              <div class="row">
+                <div>
+                  <a href="#" class="active">Redirecting</a>
+                </div>
+              </div>
+              <hr />
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-12">
+					
+					<font size="5" color="green">This email is already registered. Redirecting to login page.</font>
+                    <script>setTimeout("location.href = 'LoginRegister.php';",2000);</script>
+					
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+EOT;
+		
     } else {
         if ($_POST{'email'} == null or $_POST{'password'} == null) {
-            header("Location: register.php");
+            header("Location: LoginRegister.php");
             exit();
         } else {
             try {
@@ -30,8 +75,48 @@ if (isset($_POST{'submit'})) {
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
-            echo 'You are now registered. Redirecting to home page';
-            echo "<script>setTimeout(\"location.href = 'index.php';\",1500);</script>";
+			
+			//logging in step
+			$email = $_POST{'email'};
+            $password = $_POST{'password'};
+            $check_query = sprintf("SELECT * FROM users WHERE email = \"%s\" AND password = \"%s\";", $email, $password);
+            if ($prepare = $dbh->query($check_query) and $prepare->fetchColumn() > 0) {
+                $_SESSION['email'] = $email;
+
+                foreach ($dbh->query($check_query) as $row) {
+                    $_SESSION['user_id'] = $row['id'];
+                }
+			}
+			
+			
+											echo <<<EOT
+	<div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="panel panel-login">
+            <div class="panel-heading">
+              <div class="row">
+                <div>
+                  <a href="#" class="active">success</a>
+                </div>
+              </div>
+              <hr />
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-12">
+					
+					<font size="5" color="green">You are now registered and logged in. Redirecting to home page.</font>
+                    <script>setTimeout("location.href = 'index.php';",2000);</script>
+					
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+EOT;
         }
 
     }

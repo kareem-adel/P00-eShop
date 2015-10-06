@@ -12,6 +12,8 @@
     <script src="js/customjs.js"></script>
     <script type="text/javascript" src="js/LoginRegister.js"></script>
     <link rel="stylesheet" href="css/LoginRegister.css" />
+	<script src="js/sweetalert.min.js"></script> 
+<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
   </head>
   <body>
     <div style="float: none; height: 250;">
@@ -24,8 +26,14 @@
         </a>
       </div><?php 
       session_start();
+	  if(isset($_COOKIE['email'])){
+		$_SESSION['email'] = $_COOKIE['email'];
+	}
+	  if(isset($_COOKIE['user_id'])){
+		$_SESSION['user_id'] = $_COOKIE['user_id'];
+	}
       require("config.php");
-      if (!array_key_exists('email', $_SESSION)) {
+      if (!isset($_SESSION['email'])) {
           header("location: LoginRegister.php");
       } else {
               $UserEmail = $_SESSION['email'];
@@ -88,13 +96,14 @@
                           foreach ($dbh->query($select_query) as $row) {
                               if ($row['product_amount'] < $row['order_amount']) {
                                   $flag = 1;
-                                  $message = $message . 'The item ' . $row['name'] . " has only " . $row['product_amount'] . " pieces left " . " but you ordered " . $row['order_amount'] . "<br />";
+                                  $message = $message . 'The item ' . $row['name'] . " has only " . $row['product_amount'] . " pieces left " . " but you ordered " . $row['order_amount'] . ", please edit your cart.";
                               }
 
 
                           }
                           if ($flag == 1) {
-                              echo $message . "<br />" . "Please click <a href='cart.php'>here<a/> to edit your cart";
+                              //echo $message . "<br />" . "Please click <a href='cart.php'>here<a/> to edit your cart";
+							  echo "<script>swal({   title: \"Over the stock !\",   text: \"$message\",   confirmButtonText: \"OK\",   closeOnConfirm: false }, function(){  window.location.assign(\"cart.php\"); });</script>";
                           } else {
 
                               $select_query = sprintf("SELECT orders.amount AS order_amount, orders.product_id, products.name, products.description, products.price, products.amount AS product_amount, products.image FROM orders, products WHERE orders.product_id = products.id AND orders.is_confirmed = 0 AND orders.user_id = %s", $_SESSION['user_id']);
