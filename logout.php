@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
   <head>
     <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -18,7 +21,6 @@
 </html>
 
 <?php
-session_start();
 session_unset();
 session_destroy();
 $_SESSION = array();

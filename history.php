@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
   <head>
     <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -15,7 +18,6 @@
 </html>
 <?php
 require('config.php');
-session_start();
 if(isset($_COOKIE['email'])){
 $_SESSION['email'] = $_COOKIE['email'];
 }

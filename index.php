@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
   <head>
     <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -32,7 +35,6 @@ function validate() {
 </html>
 
 <?php
-session_start();
 require("config.php");
 
 if(isset($_COOKIE['email'])){
