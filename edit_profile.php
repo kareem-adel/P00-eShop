@@ -143,10 +143,22 @@ if (!isset($_SESSION['email'])) {
                     $update_order = sprintf("UPDATE users SET firstname='%s', lastname='%s', email='%s', address='%s', phone='%s', image='%s' WHERE id = %s ", $fname, $lname, $email, $address, $phone, $data, $_SESSION['user_id']);
                     $stmt = $dbh->query($update_order);
                     $_SESSION['email'] = $email;
+                    $_SESSION['user_image'] = $data;
+                    $_SESSION['user_fname'] = $fname;
+                    if(isset($_COOKIE['email'])){
+                      $_COOKIE['email'] = $_email;
+                      $_COOKIE['user_image'] = $data;
+                      $_COOKIE['user_fname'] = $fname;
+                    }
                 } else {
                     $update_order = sprintf("UPDATE users SET firstname='%s', lastname='%s', email='%s', address='%s', phone='%s' WHERE id = %s ", $fname, $lname, $email, $address, $phone, $_SESSION['user_id']);
                     $stmt = $dbh->query($update_order);
                     $_SESSION['email'] = $email;
+                    $_SESSION['user_fname'] = $fname;
+                    if(isset($_COOKIE['email'])){
+                      $_COOKIE['email'] = $_email;
+                      $_COOKIE['user_fname'] = $fname;
+                    }
                 }
 				echo "<script>swal({   title: \"Your profile was updated successfully !\",   text: \"Your profile was updated successfully !\",   confirmButtonText: \"OK\",   closeOnConfirm: false }, function(){  window.location.assign(\"index.php\"); });</script>";
             }
