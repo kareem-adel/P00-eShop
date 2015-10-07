@@ -66,16 +66,15 @@ $_SESSION['user_fname'] = $_COOKIE['user_fname'];
 	</form>
 	</div>
 	<div style=\"float: right;\">
-	<form action='history.php' method=POST>
-	<input type=\"submit\" name=\"history\" value=\"History\" class=\"btn btn-default\">
+	<form action='edit_profile.php' method=POST>
+	<input type=\"submit\" name=\"edit_profile\" value=\"Edit Profile\" class=\"btn btn-default\">
 	</form>
 	</div>
 	<div style=\"float: right;\">
-	<form action='edit_profile.php' method=POST>
-	<input type=\"submit\" name=\"edit_profile\" value=\"Profile\" class=\"btn btn-default\">
+	<form action='view_profile.php' method=POST>
+	<input type=\"submit\" name=\"view_profile\" value=\"Account\" class=\"btn btn-default\">
 	</form>
 	</div>
-	
 	<div style=\"float: right;\">
 	<font color=\"green\" size=\"5\" style=\"margin-right: 20px;font-weight: bold;\">Welcome </font>
 	<font color=\"black\" size=\"5\" style=\"margin-right: 20px;font-weight: bold;\">{$Userfname}</font>
