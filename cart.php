@@ -138,7 +138,7 @@ echo "</div>";
                                       $update_amount_in_products = sprintf("UPDATE products SET amount= amount-%s  WHERE id = %s", $row['order_amount'], $row['product_id']);
                                       $stmt = $dbh->query($update_amount_in_products);
                                   }
-								  echo "<script>window.location.assign(\"history.php\");</script>";
+								  echo "<script>swal({   title: \"success !\",   text: \"Items have been bought successfully !\",   confirmButtonText: \"OK\",   closeOnConfirm: false }, function(){  window.location.assign(\"index.php\"); });</script>";
                               }
                           }
 
@@ -153,11 +153,12 @@ echo "</div>";
                                               $encoded_image = base64_encode($row['image']);
                                               $total_cost += $row['amount'] * $row['price'];
                                               $cost_with_quantity = $row['amount'] * $row['price'];
+											  $item_name_with_desc = $row['name'].' ('.substr($row['description'], 0, 60).' ...)';
               echo <<<EOT
                                                       <li class="row">
                                                               
                                                               <span class="quantity">{$row['amount']}</span>
-                                                              <span class="itemName">{$row['name']} ( {$row['description']} )</span>
+                                                              <span class="itemName">{$item_name_with_desc}</span>
                                                               <form action='cart.php' method=GET>
                                                               <input type="hidden" name="product_id"  value="{$row['product_id']}"/>
                                                               <span class="popbtn"><input type='submit' name='remove_from_cart' class="btn btn-default" style="margin-top: -15px" value="Remove"></input></span>
