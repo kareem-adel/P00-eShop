@@ -132,11 +132,11 @@ if (!isset($_SESSION['email'])) {
                     </div>
 					<br>
 					<div style="margin-right: auto;margin-left: auto;margin-bottom: 10px;width: 350px">
-                      <font size="5" color="green">Address : \t</font><font name="address" id="address" size="5" color="black">Address : $address</font>
+                      <font size="5" color="green">Address : \t</font><font name="address" id="address" size="5" color="black">$address</font>
                     </div>
 					<br>
 					<div style="margin-right: auto;margin-left: auto;margin-bottom: 10px;width: 350px">
-                      <font size="5" color="green">Phone : \t</font><font name="phone" id="phone" size="5" color="black">Phone : $phone</font>
+                      <font size="5" color="green">Phone : \t</font><font name="phone" id="phone" size="5" color="black">$phone</font>
                     </div>
                 </div>
               </div>
