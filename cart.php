@@ -65,6 +65,11 @@ $_SESSION['user_fname'] = $_COOKIE['user_fname'];
 	<input type=\"submit\" name=\"cart\" value=\"Cart\" class=\"btn btn-default\">
 	</form>
 	</div>
+  <div style=\"float: right;\">
+  <form action='history.php' method=POST>
+  <input type=\"submit\" name=\"history\" value=\"History\" class=\"btn btn-default\">
+  </form>
+  </div>
 	<div style=\"float: right;\">
 	<form action='edit_profile.php' method=POST>
 	<input type=\"submit\" name=\"edit_profile\" value=\"Edit Profile\" class=\"btn btn-default\">
@@ -95,6 +100,7 @@ echo "</div>";
           <div class="text-left">
             <ul>
               <li class="row list-inline columnCaptions">
+              <span>IMAGE</span> 
               <span>QTY</span> 
               <span>ITEM</span> 
               <span>Price</span></li>
@@ -150,12 +156,14 @@ echo "</div>";
                       if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
                           foreach ($dbh->query($select_query) as $row) {
                                               $encoded_image = base64_encode($row['image']);
+                                              $final_image_small="<img width=\"30px\" height=\"30px\" src='data:image/jpeg;base64,{$encoded_image}'>";
                                               $total_cost += $row['amount'] * $row['price'];
                                               $cost_with_quantity = $row['amount'] * $row['price'];
 											  $item_name_with_desc = $row['name'].' ('.substr($row['description'], 0, 60).' ...)';
               echo <<<EOT
                                                       <li class="row">
                                                               
+                                                              <span class="quantity">{$final_image_small}</span>
                                                               <span class="quantity">{$row['amount']}</span>
                                                               <span class="itemName">{$item_name_with_desc}</span>
                                                               <form action='cart.php' method=GET>

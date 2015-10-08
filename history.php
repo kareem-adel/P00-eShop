@@ -104,7 +104,7 @@ echo "</div>";
       <div class="product-image-wrapper">
         <div class="single-products">
           <div class="productinfo text-center" style="margin-right: 10;margin-left: 10;margin-top: 10;">
-            <img src="data:image;base64, {$encoded_image}" alt="" width="400" height="200" />
+            <img src="data:image;base64, {$encoded_image}" alt="" width="400" height="400" />
             <h2>{$item_price}</h2>
             <p>{$item_name}</p>
             <p>Quantity: {$item_amount}</p>
