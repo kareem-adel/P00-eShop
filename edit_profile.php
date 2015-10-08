@@ -230,7 +230,7 @@ if (!isset($_SESSION['email'])) {
                     $_SESSION['email'] = $email;
                     $_SESSION['user_fname'] = $fname;
                     if(isset($_COOKIE['email'])){
-                      $_COOKIE['email'] = $_email;
+                      $_COOKIE['email'] = $email;
                       $_COOKIE['user_fname'] = $fname;
                     }
                 }
