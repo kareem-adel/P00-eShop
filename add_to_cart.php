@@ -44,7 +44,7 @@ if (!isset($_SESSION['email'])) {
   if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
     foreach ($dbh->query($select_query) as $row) {
         $encoded_image = base64_encode($row['image']);
-        $final_image="<img width=\"30\" height=\"30\" src='data:image/jpeg;base64,{$encoded_image}'>";
+        $final_image="<img width=\"30\" height=\"30\" src='data:image;base64,{$encoded_image}'>";
     }
 
 }
@@ -132,7 +132,7 @@ echo "</div>";
       <div class="product-image-wrapper">
         <div class="single-products">
           <div class="productinfo text-center" style="margin-right: 10;margin-left: 10;margin-top: 10;">
-            <img src="data:image;base64, {$encoded_image}" alt="" width="400" height="200" />
+            <img src="data:image;base64, {$encoded_image}" alt="" width="400" height="400" />
             <h2>{$item_price}</h2>
             <p>{$item_name}</p>
             <a href="#" class="btn btn-default add-to-cart">Add</a>

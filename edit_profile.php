@@ -144,7 +144,7 @@ if (!isset($_SESSION['email'])) {
   if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
     foreach ($dbh->query($select_query) as $row) {
         $encoded_image = base64_encode($row['image']);
-        $final_image="<img width=\"30\" height=\"30\" src='data:image/jpeg;base64,{$encoded_image}'>";
+        $final_image="<img width=\"30\" height=\"30\" src='data:image;base64,{$encoded_image}'>";
     }
 
 }
@@ -257,9 +257,9 @@ if (!isset($_SESSION['email'])) {
 		$encoded_image = '';
         if ($image <> null) {
             $encoded_image = base64_encode($image);
-			$final_image = "<img width=\"100\" height=\"100\" src=\"data:image/*;base64,$encoded_image\"/>";	
+			$final_image = "<img width=\"100\" height=\"100\" src=\"data:image;base64,$encoded_image\"/>";	
 			/*
-            echo "<img src='data:image/jpeg;base64,{$encoded_image}'>";
+            echo "<img src='data:image;base64,{$encoded_image}'>";
             $form = <<<EOT
 			<form action='edit_profile.php' method=GET'>
 			<input type='submit' value='Delete image' name='remove_image' />

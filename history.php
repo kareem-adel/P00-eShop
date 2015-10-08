@@ -45,7 +45,7 @@ if (!isset($_SESSION['email'])) {
   if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
     foreach ($dbh->query($select_query) as $row) {
         $encoded_image = base64_encode($row['image']);
-        $final_image="<img width=\"30\" height=\"30\" src='data:image/jpeg;base64,{$encoded_image}'>";
+        $final_image="<img width=\"30\" height=\"30\" src='data:image;base64,{$encoded_image}'>";
     }
 
 }

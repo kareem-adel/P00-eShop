@@ -50,7 +50,7 @@ $_SESSION['user_fname'] = $_COOKIE['user_fname'];
   if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
     foreach ($dbh->query($select_query) as $row) {
         $encoded_image = base64_encode($row['image']);
-        $final_image="<img width=\"30\" height=\"30\" src='data:image/jpeg;base64,{$encoded_image}'>";
+        $final_image="<img width=\"30\" height=\"30\" src='data:image;base64,{$encoded_image}'>";
     }
 
 }
@@ -156,7 +156,7 @@ echo "</div>";
                       if ($prepare = $dbh->query($select_query) and $prepare->fetchColumn() > 0) {
                           foreach ($dbh->query($select_query) as $row) {
                                               $encoded_image = base64_encode($row['image']);
-                                              $final_image_small="<img width=\"30px\" height=\"30px\" src='data:image/jpeg;base64,{$encoded_image}'>";
+                                              $final_image_small="<img width=\"30px\" height=\"30px\" src='data:image;base64,{$encoded_image}'>";
                                               $total_cost += $row['amount'] * $row['price'];
                                               $cost_with_quantity = $row['amount'] * $row['price'];
 											  $item_name_with_desc = $row['name'].' ('.substr($row['description'], 0, 60).' ...)';
