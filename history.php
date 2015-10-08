@@ -5,8 +5,13 @@ session_start();
   <head>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
     <link rel="stylesheet" href="css/bootsnipp.min.css" />
     <link rel="stylesheet" href="css/main.css" />
+	<script type="text/javascript" src="js/LoginRegister.js"></script>
+    <link rel="stylesheet" href="css/LoginRegister.css" />
+<script src="js/sweetalert.min.js"></script> 
+<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
 	
     <title>Your virtual shop</title>
 	

@@ -46,10 +46,10 @@ if (!isset($_SESSION['email'])) {
                     $_SESSION['user_fname'] = $row['firstname'];
                 }
 				
-				if(isset($_POST{'remember'}) and $_POST{'remember'}==1){
+				if(isset($_POST{'remember'}) and $_POST{'remember'}==true){
 					setcookie('email',$email,time()+3600);
 					setcookie('user_id',$row['id'],time()+3600);
-          setcookie('user_fname',$row['firstname'],time()+3600);
+					setcookie('user_fname',$row['firstname'],time()+3600);
 				}
 				
 						echo <<<EOT
