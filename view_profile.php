@@ -58,8 +58,8 @@ if (!isset($_SESSION['email'])) {
 	$final_image_big="<img width=\"100px\" height=\"100px\" src=\"images/avatar.png\"/>";
     if ($image <> null) {
         $encoded_image = base64_encode($image);
-        $final_image_small="<img width=\"30px\" height=\"30px\" src='data:image/jpeg;base64,{$encoded_image}'>";
-		$final_image_big="<img width=\"100px\" height=\"100px\" src='data:image/jpeg;base64,{$encoded_image}'/>";
+        $final_image_small="<img width=\"30px\" height=\"30px\" src='data:image/*;base64,{$encoded_image}'>";
+		$final_image_big="<img width=\"100px\" height=\"100px\" src='data:image/*;base64,{$encoded_image}'/>";
     }
 	
 	echo "
